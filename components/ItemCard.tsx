@@ -37,10 +37,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onUpdate, onPermanentDelete, 
   const SWIPE_THRESHOLD = -100; // pixels to trigger action
 
   // New state and ref for dynamic menu
-  const [isMenuUp, setIsMenuUp] = useState(true);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const [isMenuUp, setIsMenuUp] = useState(false);
 
-  const canBeOneThing = !!(onSetAsOneThing && !item.delegated && !item.automated && !item.batched);
+  const canBeOneThing = !!(onSetAsOneThing && !item.delegated && !item.automated && !item.completed && !item.isRoutine);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -90,19 +89,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onUpdate, onPermanentDelete, 
 
   const toggleMenu = () => {
     if (!isMenuOpen) {
-        if (menuButtonRef.current) {
-            const rect = menuButtonRef.current.getBoundingClientRect();
-            const menuHeight = 220; // Approximate height of the menu
-            const spaceAbove = rect.top;
-            const spaceBelow = window.innerHeight - rect.bottom;
-
-            // Default to up, but if not enough space above AND more space below, open down.
-            if (spaceAbove < menuHeight && spaceBelow > spaceAbove) {
-                setIsMenuUp(false);
-            } else {
-                setIsMenuUp(true);
-            }
-        }
+        // The user wants the menu to always open downwards.
+        // Setting isMenuUp to false achieves this via the `top-full` tailwind class.
+        setIsMenuUp(false);
     }
     setIsMenuOpen(prev => !prev);
   };
@@ -256,7 +245,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onUpdate, onPermanentDelete, 
                         
                         <div className="relative" ref={menuRef}>
                             <button
-                                ref={menuButtonRef}
                                 title="More actions"
                                 onClick={toggleMenu}
                                 className="p-1.5 rounded-full text-brand-text-secondary dark:text-dark-text-secondary hover:bg-brand-primary-tonal-bg dark:hover:bg-dark-elev1"

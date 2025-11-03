@@ -131,7 +131,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   const handleSetAsOneThing = (id: string) => {
     const itemToUpdate = items.find(item => item.id === id);
     if (itemToUpdate) {
-        onUpdateItem({ ...itemToUpdate, rating: 6 }); // Set a high rating to make it #1
+        // Set a high rating and update the timestamp to ensure it becomes the new "One Thing"
+        onUpdateItem({ ...itemToUpdate, rating: 6, createdAt: Date.now() }); 
         onNavigateBack();
     }
   };

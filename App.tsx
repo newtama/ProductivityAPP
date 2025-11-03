@@ -23,6 +23,7 @@ function App() {
   const [theme, setTheme] = useLocalStorage<Theme>('theme', 'system');
   const [ideasLayout, setIdeasLayout] = useLocalStorage<IdeasLayout>('ideasLayout', 'categorized');
   const [oneThingHistory, setOneThingHistory] = useLocalStorage<Array<{date: string; task: TaskItem; reflection?: ReflectionData}>>('oneThingHistory', []);
+  const [lastVisitDate, setLastVisitDate] = useLocalStorage<string>('lastVisitDate', '');
 
 
   useEffect(() => {
@@ -35,6 +36,34 @@ function App() {
   }, [theme]);
 
   
+  // Daily Reset Logic
+  useEffect(() => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (lastVisitDate && lastVisitDate !== todayStr) {
+      // It's a new day, find yesterday's "One Thing" and reset its action plan
+      const yesterdayEntry = oneThingHistory.find(entry => entry.date === lastVisitDate);
+      if (yesterdayEntry) {
+          const taskToResetId = yesterdayEntry.task.id;
+          setItems(prevItems => prevItems.map(item => {
+              if (item.id === taskToResetId) {
+                  const resetActionPlan = item.actionPlan ? {
+                      ...item.actionPlan,
+                      keyActions: item.actionPlan.keyActions.map(action => ({...action, completed: false}))
+                  } : undefined;
+                  
+                  // Also un-complete the main task if it was marked as such to allow it to be the one thing again.
+                  return { ...item, actionPlan: resetActionPlan, completed: false };
+              }
+              return item;
+          }));
+      }
+    }
+    // Update the last visit date for the next check, but only if it has changed.
+    if (lastVisitDate !== todayStr) {
+        setLastVisitDate(todayStr);
+    }
+  }, []); // Run only on initial app mount
+
   useEffect(() => {
     if (hourlyRate === null) {
       // Stay on the calculator if it hasn't been set, which is handled below.
