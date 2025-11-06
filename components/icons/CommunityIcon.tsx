@@ -2,6 +2,9 @@ import React from 'react';
 
 export const CommunityIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" {...props}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962A3.75 3.75 0 0112 15.75v-1.5m3.75 0a3.75 3.75 0 01-7.5 0v-1.5a3.75 3.75 0 017.5 0v1.5m-7.5 0h7.5m-7.5 0a3.75 3.75 0 01-3.75-3.75v-1.5a3.75 3.75 0 013.75-3.75h.375m-3.75 0a3.75 3.75 0 01-3.75-3.75v-1.5a3.75 3.75 0 013.75-3.75h7.5a3.75 3.75 0 013.75 3.75v1.5a3.75 3.75 0 01-3.75 3.75h-.375m-7.5 0v.375c0 .621.504 1.125 1.125 1.125h4.25c.621 0 1.125-.504 1.125-1.125V15m-3.75-3.75a3.75 3.75 0 00-3.75-3.75m3.75 3.75a3.75 3.75 0 01-3.75 3.75m3.75-3.75h.375m-3.75 0h.375m-3.75 0v.375c0 .621.504 1.125 1.125 1.125h.375m-3.75 0a3.75 3.75 0 01-3.75-3.75v-1.5a3.75 3.75 0 013.75-3.75h.375" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
