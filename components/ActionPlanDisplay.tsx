@@ -27,14 +27,6 @@ const ActionPlanDisplay: React.FC<ActionPlanDisplayProps> = ({ plan, onToggleAct
 
   return (
     <div className="bg-white dark:bg-dark-surface rounded-3xl shadow-ios p-6 border border-brand-border dark:border-dark-border text-left">
-      {plan.framework && (
-        <div className="mb-4 pb-4 border-b border-brand-border dark:border-dark-border">
-            <h3 className="font-semibold text-sm uppercase tracking-wider text-brand-text-secondary dark:text-dark-text-secondary mb-1">
-                {t('framework')}
-            </h3>
-            <p className="font-semibold text-brand-primary dark:text-dark-text-primary">{plan.framework}</p>
-        </div>
-      )}
       <div>
         <h3 className="font-semibold text-sm uppercase tracking-wider text-brand-text-secondary dark:text-dark-text-secondary mb-3">{t('checklist')}</h3>
         <ul className="space-y-3">

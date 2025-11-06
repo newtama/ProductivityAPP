@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { TaskItem, ActionPlan, ActionPlanItem, ReflectionData, SurveyAnswers } from '../types';
+import { TaskItem, ActionPlan, ActionPlanItem, ReflectionData, SurveyAnswers, Vision } from '../types';
 import { SpinnerIcon } from './icons/SpinnerIcon';
 import ActionPlanDisplay from './ActionPlanDisplay';
 import EditableText from './EditableText';
@@ -16,6 +16,7 @@ import { VisionIcon } from './icons/VisionIcon';
 
 
 interface HomePageProps {
+  visions: Vision[];
   theOneThing: TaskItem | null;
   onUpdateItem: (item: TaskItem) => void;
   oneThingHistory: Array<{date: string; task: TaskItem; reflection?: ReflectionData}>;
@@ -23,7 +24,7 @@ interface HomePageProps {
   onNavigate: (page: Page) => void;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ theOneThing, onUpdateItem, oneThingHistory, hourlyRate, onNavigate }) => {
+const HomePage: React.FC<HomePageProps> = ({ visions, theOneThing, onUpdateItem, oneThingHistory, hourlyRate, onNavigate }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +39,10 @@ const HomePage: React.FC<HomePageProps> = ({ theOneThing, onUpdateItem, oneThing
         return acc;
     }, {} as Record<keyof SurveyAnswers, string>),
   [surveyQuestions]);
+
+  const oneMonthVision = useMemo(() => {
+    return visions.find(v => v.horizon === '1m');
+  }, [visions]);
 
   const formatReflection = (reflection: ReflectionData) => {
     const surveyLines = Object.entries(reflection.survey)
@@ -293,6 +298,12 @@ IMPORTANT:
                     inputClasses="w-full bg-transparent text-2xl md:text-3xl font-semibold text-brand-text-primary dark:text-dark-text-primary border-b-2 border-brand-primary focus:outline-none"
                     placeholder={t('whatIsYourOneThing')}
                   />
+                  {oneMonthVision?.text && (
+                    <p className="mt-2 text-sm text-brand-text-secondary dark:text-dark-text-secondary">
+                        {t('forTheSakeOf')}{' '}
+                        <span className="font-semibold italic text-brand-text-primary dark:text-dark-text-primary">{oneMonthVision.text}</span>
+                    </p>
+                  )}
                 </div>
                 <div className="absolute bottom-0 end-6 translate-y-1/2 flex items-center gap-3 z-10">
                     <button

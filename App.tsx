@@ -204,7 +204,7 @@ function App() {
   const renderPage = () => {
     switch (page) {
       case 'home':
-        return <HomePage theOneThing={theOneThing} onUpdateItem={handleUpdateItem} oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} onNavigate={setPage} />;
+        return <HomePage visions={visions} theOneThing={theOneThing} onUpdateItem={handleUpdateItem} oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} onNavigate={setPage} />;
       case 'ideas':
         return (
           <Dashboard
@@ -244,7 +244,7 @@ function App() {
                 />;
       }
       default:
-        return <HomePage theOneThing={theOneThing} onUpdateItem={handleUpdateItem} oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} onNavigate={setPage} />;
+        return <HomePage visions={visions} theOneThing={theOneThing} onUpdateItem={handleUpdateItem} oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} onNavigate={setPage} />;
     }
   };
 

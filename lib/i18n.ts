@@ -81,6 +81,14 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   generating: { en: 'Generating...', id: 'Menghasilkan...', ru: 'Генерация...', hi: 'उत्पन्न हो रहा है...', zh: '生成中...', ar: 'جاري الإنشاء...' },
   noOneThing: { en: 'No "One Thing" identified yet.', id: 'Belum ada "Satu Hal" yang diidentifikasi.', ru: 'Главное дело еще не определено.', hi: 'अभी तक कोई "एक चीज़" पहचानी नहीं गई है।', zh: '尚未确定“那件事”。', ar: 'لم يتم تحديد "المهمة الأهم" بعد.' },
   goToIdeas: { en: 'Go to your Ideas page to add and rate your items to find your focus.', id: 'Buka halaman Ide Anda untuk menambah dan menilai item untuk menemukan fokus Anda.', ru: 'Перейдите на страницу Идей, чтобы добавить и оценить свои дела и найти свой фокус.', hi: 'अपना ध्यान केंद्रित करने के लिए आइटम जोड़ने और रेट करने के लिए अपने विचार पृष्ठ पर जाएं।', zh: '前往您的想法页面添加和评价您的项目以找到您的焦点。', ar: 'اذهب إلى صفحة الأفكار لإضافة وتقييم عناصرك للعثور على تركيزك.' },
+  forTheSakeOf: {
+    en: 'To achieve:',
+    id: 'Demi mencapai:',
+    ru: 'Для достижения:',
+    hi: 'प्राप्त करने के लिए:',
+    zh: '为了实现：',
+    ar: 'لتحقيق:',
+  },
 
   // Action Plan
   framework: { en: 'Framework', id: 'Kerangka Kerja', ru: 'Методология', hi: 'रूपरेखा', zh: '框架', ar: 'إطار العمل' },
