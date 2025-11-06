@@ -6,8 +6,9 @@ import { ProfileIcon } from './icons/ProfileIcon';
 import { AnalyticsIcon } from './icons/AnalyticsIcon';
 import { useLanguage } from '../contexts/LanguageContext';
 import { RoutineIcon } from './icons/RoutineIcon';
+import { CommunityIcon } from './icons/CommunityIcon';
 
-export type Page = 'home' | 'ideas' | 'routine' | 'analytics' | 'profile' | 'reflection';
+export type Page = 'home' | 'ideas' | 'vision' | 'community' | 'routine' | 'analytics' | 'profile' | 'reflection';
 
 interface NavigationProps {
   currentPage: Page;
@@ -20,6 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
   const navItems = [
     { page: 'home' as Page, label: t('home'), icon: HomeIcon },
     { page: 'ideas' as Page, label: t('ideas'), icon: ChecklistIcon },
+    { page: 'community' as Page, label: t('community'), icon: CommunityIcon },
     { page: 'analytics' as Page, label: t('analytics'), icon: AnalyticsIcon },
     { page: 'profile' as Page, label: t('profile'), icon: ProfileIcon },
   ];

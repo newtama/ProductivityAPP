@@ -51,3 +51,19 @@ export interface ReflectionData {
   survey: SurveyAnswers;
   notes: string;
 }
+
+export type VisionHorizon = '5y' | '1y' | '3m' | '1m';
+
+export interface Vision {
+  horizon: VisionHorizon;
+  text: string;
+  imageUrl?: string; // Storing image as data URL
+}
+
+export interface ForumPost {
+  id: string;
+  content: string;
+  createdAt: number;
+  userName: string;
+  userAvatar: string;
+}

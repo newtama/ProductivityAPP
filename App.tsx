@@ -1,7 +1,8 @@
 
+
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
-import { TaskItem, Category, ReflectionData } from './types';
+import { TaskItem, Category, ReflectionData, Vision } from './types';
 import RateCalculator from './components/RateCalculator';
 import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
@@ -11,9 +12,18 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import AnalyticsPage from './components/AnalyticsPage';
 import ReflectionPage from './components/ReflectionPage';
 import RoutinePage from './components/RoutinePage';
+import VisionPage from './components/VisionPage';
+import CommunityPage from './components/CommunityPage';
 
 export type Theme = 'light' | 'dark' | 'system';
 export type IdeasLayout = 'simple' | 'categorized';
+
+const getLocalDateString = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
 
 function App() {
   const [annualIncome, setAnnualIncome] = useLocalStorage<string>('annualIncome', '');
@@ -24,6 +34,7 @@ function App() {
   const [ideasLayout, setIdeasLayout] = useLocalStorage<IdeasLayout>('ideasLayout', 'categorized');
   const [oneThingHistory, setOneThingHistory] = useLocalStorage<Array<{date: string; task: TaskItem; reflection?: ReflectionData}>>('oneThingHistory', []);
   const [lastVisitDate, setLastVisitDate] = useLocalStorage<string>('lastVisitDate', '');
+  const [visions, setVisions] = useLocalStorage<Vision[]>('visions', []);
 
 
   useEffect(() => {
@@ -38,7 +49,7 @@ function App() {
   
   // Daily Reset Logic
   useEffect(() => {
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = getLocalDateString(new Date());
     if (lastVisitDate && lastVisitDate !== todayStr) {
       // It's a new day, find yesterday's "One Thing" and reset its action plan
       const yesterdayEntry = oneThingHistory.find(entry => entry.date === lastVisitDate);
@@ -107,6 +118,10 @@ function App() {
       prevItems.map(item => (item.id === updatedItem.id ? updatedItem : item))
     );
   }, [setItems]);
+  
+  const handleUpdateVisions = useCallback((updatedVisions: Vision[]) => {
+      setVisions(updatedVisions);
+  }, [setVisions]);
 
   const handlePermanentDeleteItem = useCallback((id: string) => {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
@@ -138,7 +153,7 @@ function App() {
   useEffect(() => {
     if (!theOneThing) return;
 
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = getLocalDateString(new Date());
 
     setOneThingHistory(prevHistory => {
         const historyForTodayIndex = prevHistory.findIndex(entry => entry.date === todayStr);
@@ -162,7 +177,7 @@ function App() {
   }, [theOneThing, setOneThingHistory]);
   
   const handleSaveReflection = useCallback((reflectionData: ReflectionData) => {
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = getLocalDateString(new Date());
     setOneThingHistory(prevHistory => {
         const historyIndex = prevHistory.findIndex(entry => entry.date === todayStr);
         if (historyIndex !== -1) {
@@ -202,6 +217,10 @@ function App() {
             ideasLayout={ideasLayout}
           />
         );
+       case 'vision':
+        return <VisionPage visions={visions} onUpdateVisions={handleUpdateVisions} onNavigateBack={() => setPage('home')} />;
+       case 'community':
+        return <CommunityPage />;
        case 'routine':
         return (
           <RoutinePage
@@ -216,7 +235,7 @@ function App() {
       case 'profile':
         return <ProfilePage hourlyRate={hourlyRate} onReset={handleReset} theme={theme} onSetTheme={setTheme} onResetRate={handleResetRate} ideasLayout={ideasLayout} onSetIdeasLayout={setIdeasLayout}/>;
       case 'reflection': {
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = getLocalDateString(new Date());
         const todayHistory = oneThingHistory.find(h => h.date === todayStr);
         return <ReflectionPage
                   onNavigateBack={() => setPage('home')}
@@ -229,13 +248,16 @@ function App() {
     }
   };
 
+  const pagesWithNav = ['home', 'community', 'analytics', 'profile'];
+  const showNav = pagesWithNav.includes(page);
+
   return (
     <LanguageProvider>
       <div className="bg-brand-bg dark:bg-dark-bg min-h-screen font-sans">
-        <div className={!['ideas', 'routine', 'reflection'].includes(page) ? 'pb-28' : ''}>
+        <div className={showNav ? 'pb-28' : ''}>
           {renderPage()}
         </div>
-        {!['ideas', 'routine', 'reflection'].includes(page) && <Navigation currentPage={page} onNavigate={setPage} />}
+        {showNav && <Navigation currentPage={page} onNavigate={setPage} />}
       </div>
     </LanguageProvider>
   );

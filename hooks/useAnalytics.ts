@@ -16,17 +16,33 @@ export const useAnalytics = (oneThingHistory: Array<{date: string; task: TaskIte
         return diffDays < 7 && diffDays >= 0;
     });
 
-    const successfulDays = last7DaysHistory.filter(entry => {
+    const dailySuccessRates = last7DaysHistory.map(entry => {
         const plan = entry.task.actionPlan;
-        return plan && plan.keyActions.length > 0 && plan.keyActions.every(a => a.completed);
+        if (plan && plan.keyActions.length > 0) {
+            const completedCount = plan.keyActions.filter(a => a.completed).length;
+            return (completedCount / plan.keyActions.length) * 100;
+        }
+        return 0; // No plan or no actions, 0% success for that day
     });
 
     const totalFocusDays = last7DaysHistory.length;
-    const successRate = totalFocusDays > 0 ? (successfulDays.length / totalFocusDays) * 100 : 0;
+    const totalSuccessPercentage = dailySuccessRates.reduce((sum, rate) => sum + rate, 0);
+    const successRate = totalFocusDays > 0 ? totalSuccessPercentage / totalFocusDays : 0;
+
     const completedActions = last7DaysHistory.reduce((sum, entry) => {
         return sum + (entry.task.actionPlan?.keyActions.filter(a => a.completed).length || 0);
     }, 0);
-    const potentialValue = successfulDays.length * 8 * hourlyRate;
+
+    const potentialValue = last7DaysHistory.reduce((total, entry) => {
+        const plan = entry.task.actionPlan;
+        let dailySuccessFraction = 0;
+        if (plan && plan.keyActions.length > 0) {
+            const completedCount = plan.keyActions.filter(a => a.completed).length;
+            dailySuccessFraction = completedCount / plan.keyActions.length;
+        }
+        return total + (dailySuccessFraction * 8 * hourlyRate);
+    }, 0);
+
 
     return { successRate, totalFocusDays, completedActions, potentialValue };
   }, [oneThingHistory, hourlyRate]);

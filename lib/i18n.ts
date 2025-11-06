@@ -1,4 +1,5 @@
 
+
 export const LANGUAGES = {
   en: { name: 'English', nativeName: 'English', currency: '$', currencyCode: 'USD' },
   id: { name: 'Indonesian', nativeName: 'Bahasa Indonesia', currency: 'Rp', currencyCode: 'IDR' },
@@ -65,11 +66,14 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   // Navigation
   home: { en: 'Home', id: 'Beranda', ru: 'Главная', hi: 'होम', zh: '首页', ar: 'الرئيسية' },
   ideas: { en: 'Ideas', id: 'Ide', ru: 'Идеи', hi: 'विचार', zh: '想法', ar: 'أفكار' },
+  community: { en: 'Community', id: 'Komunitas', ru: 'Сообщество', hi: 'समुदाय', zh: '社区', ar: 'المجتمع' },
+  vision: { en: 'Vision', id: 'Visi', ru: 'Видение', hi: 'दृष्टि', zh: '愿景', ar: 'رؤية' },
   routine: { en: 'Routine', id: 'Rutin', ru: 'Рутина', hi: 'नियमित', zh: '例行', ar: 'روتين' },
   analytics: { en: 'Analytics', id: 'Analitik', ru: 'Аналитика', hi: 'एनालिटिक्स', zh: '分析', ar: 'التحليلات' },
   profile: { en: 'Profile', id: 'Profil', ru: 'Профиль', hi: 'प्रोफ़ाइल', zh: '个人资料', ar: 'الملف الشخصي' },
 
   // Home Page
+  myVision: { en: 'My Vision', id: 'Visi Saya', ru: 'Мое Видение', hi: 'मेरी दृष्टि', zh: '我的愿景', ar: 'رؤيتي' },
   yourOneThing: { en: 'Your One Thing', id: 'Satu Hal Anda', ru: 'Ваше главное дело', hi: 'आपकी एक चीज़', zh: '你的“那件事”', ar: 'مهمتك الأهم' },
   dominoEffect: { en: 'The idea that creates the biggest domino effect.', id: 'Ide yang menciptakan efek domino terbesar.', ru: 'Идея, которая создает наибольший эффект домино.', hi: 'वह विचार जो सबसे बड़ा डोमिनोज़ प्रभाव पैदा करता है।', zh: '能产生最大多米诺效应的想法。', ar: 'الفكرة التي تخلق أكبر تأثير دومينو.' },
   whatIsYourOneThing: { en: 'What is your one thing?', id: 'Apa satu hal Anda?', ru: 'В чем ваше главное дело?', hi: 'आपकी वह एक चीज़ क्या है?', zh: '你的“那件事”是什么？', ar: 'ما هي مهمتك الأهم؟' },
@@ -80,7 +84,7 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
 
   // Action Plan
   framework: { en: 'Framework', id: 'Kerangka Kerja', ru: 'Методология', hi: 'रूपरेखा', zh: '框架', ar: 'إطار العمل' },
-  checklist: { en: 'Checklist', id: 'Daftar Periksa', ru: 'Чек-лист', hi: 'जाँच सूची', zh: '清单', ar: 'قائمة المراجعة' },
+  checklist: { en: 'Action List', id: 'Daftar Tindakan', ru: 'Список действий', hi: 'कार्य सूची', zh: '行动清单', ar: 'قائمة الإجراءات' },
   emptyTask: { en: 'Empty task...', id: 'Tugas kosong...', ru: 'Пустая задача...', hi: 'खाली कार्य...', zh: '空任务...', ar: 'مهمة فارغة...' },
   addKeyAction: { en: 'Add a key action...', id: 'Tambahkan tindakan kunci...', ru: 'Добавить ключевое действие...', hi: 'एक मुख्य क्रिया जोड़ें...', zh: '添加关键行动...', ar: 'أضف إجراءً رئيسيًا...' },
   addMore: { en: 'Add More', id: 'Tambah Lagi', ru: 'Добавить еще', hi: 'और जोड़ें', zh: '添加更多', ar: 'أضف المزيد' },
@@ -230,7 +234,7 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   reflectionQ5A2: { en: "Place", id: "Tempat", ru: "Место", hi: "जगह", zh: "地点", ar: "المكان" },
   reflectionQ5A3: { en: "Notifications", id: "Notifikasi", ru: "Уведомления", hi: "सूचनाएं", zh: "通知", ar: "الإشعارات" },
   reflectionQ5A4: { en: "Unclear Task", id: "Tugas Nggak Jelas", ru: "Неясная задача", hi: "अस्पष्ट कार्य", zh: "任务不明确", ar: "مهمة غير واضحة" },
-  reflectionQ5A5: { en: "Fatigue", id: "Kelelahan", ru: "Усталость", hi: "थकान", zh: "疲劳", ar: "الإرهاق" },
+  reflectionQ5A5: { en: "Fatigue", id: "Kelelahan", ru: "Усталость", hi: "थकान", zh: "疲劳", ar: "الإрهاق" },
 
   reflectionQ6: { en: "What anticipatory strategy for tomorrow do you want to activate in the app?", id: "Strategi antisipasi untuk besok yang mau kamu aktifkan di app?", ru: "Какую упреждающую стратегию на завтра вы хотите активировать в приложении?", hi: "कल के लिए आप ऐप में कौन सी प्रत्याशित रणनीति सक्रिय करना चाहते हैं?", zh: "您想在应用中为明天激活什么预期策略？", ar: "ما هي الاستراتيجية الاستباقية للغد التي تريد تفعيلها في التطبيق؟" },
   reflectionQ6A1: { en: "Activate 25-min focus mode", id: "Aktifkan mode fokus 25 menit", ru: "Активировать 25-минутный режим фокусировки", hi: "25-मिनट का फ़ोकस मोड सक्रिय करें", zh: "激活25分钟专注模式", ar: "تفعيل وضع التركيز لمدة 25 دقيقة" },
@@ -242,4 +246,36 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   viewReflection: { en: 'View Reflection', id: 'Lihat Refleksi', ru: 'Посмотреть рефлексию', hi: 'चिंतन देखें', zh: '查看反思', ar: 'عرض التأمل' },
   filterByDate: { en: 'Filter by date...', id: 'Filter berdasarkan tanggal...', ru: 'Фильтр по дате...', hi: 'तिथि के अनुसार फ़िल्टर करें...', zh: '按日期筛选...', ar: 'تصفية حسب التاريخ...' },
   clearFilter: { en: 'Clear', id: 'Bersihkan', ru: 'Очистить', hi: 'साफ़ करें', zh: '清除', ar: 'مسح' },
+  
+  // Vision Page
+  visionTitle: { en: 'My Vision', id: 'Visi Saya', ru: 'Мое видение', hi: 'मेरी दृष्टि', zh: '我的愿景', ar: 'رؤيتي' },
+  visionDesc: { en: 'Connect your long-term vision to your daily actions.', id: 'Hubungkan visi jangka panjang Anda dengan tindakan harian Anda.', ru: 'Свяжите свое долгосрочное видение с ежедневными действиями.', hi: 'अपनी दीर्घकालिक दृष्टि को अपने दैनिक कार्यों से जोड़ें।', zh: '将您的长期愿景与日常行动联系起来。', ar: 'اربط رؤيتك طويلة المدى بأفعالك اليومية.' },
+  vision5y: { en: '5 Years', id: '5 Tahun', ru: '5 лет', hi: '5 साल', zh: '5年', ar: '5 سنوات' },
+  vision1y: { en: '1 Year', id: '1 Tahun', ru: '1 год', hi: '1 वर्ष', zh: '1年', ar: 'سنة واحدة' },
+  vision3m: { en: '3 Months', id: '3 Bulan', ru: '3 месяца', hi: '3 महीने', zh: '3个月', ar: '3 أشهر' },
+  vision1m: { en: '1 Month', id: '1 Bulan', ru: '1 месяц', hi: '1 महीना', zh: '1个月', ar: 'شهر واحد' },
+  visionPrompt5y: { en: 'What does your ideal life look and feel like in 5 years?', id: 'Seperti apa kehidupan ideal Anda dalam 5 tahun?', ru: 'Как выглядит и ощущается ваша идеальная жизнь через 5 лет?', hi: '5 वर्षों में आपका आदर्श जीवन कैसा दिखता और महसूस होता है?', zh: '5年后您理想的生活是什么样子的？', ar: 'كيف تبدو حياتك المثالية وتشعر بها في غضون 5 سنوات؟' },
+  visionPrompt1y: { en: 'What key milestone will bring you significantly closer to your 5-year vision?', id: 'Tonggak kunci apa yang akan membawa Anda lebih dekat ke visi 5 tahun Anda?', ru: 'Какая ключевая веха значительно приблизит вас к вашему 5-летнему видению?', hi: 'कौन सा प्रमुख मील का पत्थर आपको अपने 5 साल के दृष्टिकोण के काफी करीब लाएगा?', zh: '哪个关键里程碑将使您更接近您的5年愿景？', ar: 'ما هو الإنجاز الرئيسي الذي سيقربك بشكل كبير من رؤيتك لمدة 5 سنوات؟' },
+  visionPrompt3m: { en: 'What can you achieve in the next 90 days to make progress on your 1-year goal?', id: 'Apa yang dapat Anda capai dalam 90 hari ke depan untuk mencapai tujuan 1 tahun Anda?', ru: 'Чего вы можете достичь в ближайшие 90 дней, чтобы приблизиться к своей годовой цели?', hi: 'आप अपने 1 साल के लक्ष्य पर प्रगति करने के लिए अगले 90 दिनों में क्या हासिल कर सकते हैं?', zh: '在接下来的90天内，您可以实现什么来推进您的1年目标？', ar: 'ما الذي يمكنك تحقيقه في الأيام التسعين القادمة لإحراز تقدم في هدفك لمدة عام واحد؟' },
+  visionPrompt1m: { en: 'What is the immediate focus for this month to start the momentum?', id: 'Apa fokus langsung bulan ini untuk memulai momentum?', ru: 'Каков непосредственный фокус на этот месяц, чтобы начать движение?', hi: 'गति शुरू करने के लिए इस महीने का तत्काल ध्यान क्या है?', zh: '本月立即的重点是什么，以启动势头？', ar: 'ما هو التركيز الفوري لهذا الشهر لبدء الزخم؟' },
+  addYourVision: { en: 'Add your vision...', id: 'Tambahkan visi Anda...', ru: 'Добавьте свое видение...', hi: 'अपनी दृष्टि जोड़ें...', zh: '添加您的愿景...', ar: 'أضف رؤيتك...' },
+  uploadImage: { en: 'Upload Image', id: 'Unggah Gambar', ru: 'Загрузить изображение', hi: 'छवि अपलोड करें', zh: '上传图片', ar: 'تحميل صورة' },
+  changeImage: { en: 'Change Image', id: 'Ubah Gambar', ru: 'Изменить изображение', hi: 'छवि बदलें', zh: '更换图片', ar: 'تغيير الصورة' },
+
+  // Community Page
+  communityTitle: { en: 'Community', id: 'Komunitas', ru: 'Сообщество', hi: 'समुदाय', zh: '社区', ar: 'المجتمع' },
+  communityDesc: { en: 'Connect & grow with fellow high-achievers.', id: 'Terhubung & berkembang bersama sesama pencapai.', ru: 'Общайтесь и развивайтесь с другими достигаторами.', hi: 'साथी उच्च-उपलब्धि वालों के साथ जुड़ें और बढ़ें।', zh: '与志同道合的人建立联系并共同成长。', ar: 'تواصل وتطور مع زملائك من أصحاب الإنجازات العالية.' },
+  upcomingSession: { en: 'Upcoming Focus Session', id: 'Sesi Fokus Mendatang', ru: 'Предстоящая фокус-сессия', hi: 'आगामी फोकस सत्र', zh: '即将举行的专注会议', ar: 'جلسة التركيز القادمة' },
+  joinZoom: { en: 'Join with Zoom', id: 'Gabung dengan Zoom', ru: 'Присоединиться к Zoom', hi: 'ज़ूम से जुड़ें', zh: '使用 Zoom 加入', ar: 'انضم عبر زووم' },
+  communityForum: { en: 'Community Forum', id: 'Forum Komunitas', ru: 'Форум сообщества', hi: 'सामुदायिक मंच', zh: '社区论坛', ar: 'منتدى المجتمع' },
+  // Community Page v2
+  feed: { en: 'Feed', id: 'Feed', ru: 'Лента', hi: 'फ़ीड', zh: '动态', ar: 'آخر الأخبار' },
+  sessions: { en: 'Sessions', id: 'Sesi', ru: 'Сессии', hi: 'सत्र', zh: '会议', ar: 'الجلسات' },
+  whatsOnYourMindCommunity: { en: 'Share your thoughts or wins...', id: 'Bagikan pemikiran atau kemenanganmu...', ru: 'Поделитесь своими мыслями или победами...', hi: 'अपने विचार या जीत साझा करें...', zh: '分享您的想法或胜利...', ar: 'شارك بأفكارك أو إنجازاتك...' },
+  post: { en: 'Post', id: 'Kirim', ru: 'Опубликовать', hi: 'पोस्ट करें', zh: '发布', ar: 'نشر' },
+  you: { en: 'You', id: 'Anda', ru: 'Вы', hi: 'आप', zh: '您', ar: 'أنت' },
+  justNow: { en: 'Just now', id: 'Baru saja', ru: 'Только что', hi: 'अभी-अभी', zh: '刚刚', ar: 'الآن' },
+  minutesAgo: { en: '{count}m ago', id: '{count}m lalu', ru: '{count}м назад', hi: '{count}मि पहले', zh: '{count}分钟前', ar: 'منذ {count} دقيقة' },
+  hoursAgo: { en: '{count}h ago', id: '{count}j lalu', ru: '{count}ч назад', hi: '{count}घं पहले', zh: '{count}小时前', ar: 'منذ {count} ساعة' },
+  daysAgo: { en: '{count}d ago', id: '{count}h lalu', ru: '{count}д назад', hi: '{count}दि पहले', zh: '{count}天前', ar: 'منذ {count} يوم' },
 };

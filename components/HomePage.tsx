@@ -12,6 +12,7 @@ import { PlusIcon } from './icons/PlusIcon';
 import { ReflectionIcon } from './icons/ReflectionIcon';
 import { CalendarIcon } from './icons/CalendarIcon';
 import { getSurveyQuestions } from './ReflectionPage';
+import { VisionIcon } from './icons/VisionIcon';
 
 
 interface HomePageProps {
@@ -294,6 +295,14 @@ IMPORTANT:
                   />
                 </div>
                 <div className="absolute bottom-0 end-6 translate-y-1/2 flex items-center gap-3 z-10">
+                    <button
+                        onClick={() => onNavigate('vision')}
+                        className="p-3 rounded-full text-brand-text-secondary dark:text-dark-muted bg-white dark:bg-dark-surface shadow-lg hover:bg-slate-100 dark:hover:bg-dark-elev1 transition-all transform hover:scale-110"
+                        aria-label={t('myVision')}
+                        title={t('myVision')}
+                    >
+                        <VisionIcon className="w-6 h-6" />
+                    </button>
                     <button
                         onClick={() => onNavigate('reflection')}
                         className="p-3 rounded-full text-brand-text-secondary dark:text-dark-muted bg-white dark:bg-dark-surface shadow-lg hover:bg-slate-100 dark:hover:bg-dark-elev1 transition-all transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
