@@ -1,4 +1,5 @@
 
+
 import React, { useState, useRef, useEffect } from 'react';
 import { TaskItem, Category, SubTask } from '../types';
 import StarRating from './StarRating';
@@ -230,19 +231,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onUpdate, onPermanentDelete, 
                 <div className="flex items-center justify-between pt-2 pl-8">
                     <StarRating rating={item.rating} onRate={rating => onUpdate({ ...item, rating })} />
                     <div className="flex items-center space-x-1">
-                        <button
-                            title={t('checklist')}
-                            onClick={() => setIsChecklistVisible(!isChecklistVisible)}
-                            className={`p-1.5 rounded-full transition-colors relative ${isChecklistVisible ? 'bg-brand-primary-tonal-bg dark:bg-dark-elev1 text-brand-primary dark:text-dark-text-primary' : 'text-brand-text-secondary dark:text-dark-text-secondary hover:bg-brand-primary-tonal-bg dark:hover:bg-dark-elev1'}`}
-                            >
-                            <ChecklistIcon className="w-5 h-5" />
-                            {totalSubTasks > 0 && (
-                                <span className="absolute -top-1 -end-1.5 text-xs bg-brand-primary text-white rounded-full min-w-[16px] h-4 text-center px-1 font-semibold text-[10px] flex items-center justify-center">
-                                    {completedSubTasks}/{totalSubTasks}
-                                </span>
-                            )}
-                        </button>
-                        
                         <div className="relative" ref={menuRef}>
                             <button
                                 title="More actions"
@@ -268,6 +256,15 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onUpdate, onPermanentDelete, 
                                 <button onClick={() => { onUpdate({ ...item, automated: !item.automated }); setIsMenuOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm hover:bg-slate-100 dark:hover:bg-dark-surface transition-colors ${item.automated ? 'text-brand-accent' : 'text-brand-text-primary dark:text-dark-text-primary'}`}>
                                 <AutomateIcon className="w-5 h-5" />
                                 <span>{t('automate')}</span>
+                                </button>
+                                <button onClick={() => { setIsChecklistVisible(!isChecklistVisible); setIsMenuOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm hover:bg-slate-100 dark:hover:bg-dark-surface transition-colors ${isChecklistVisible ? 'text-brand-primary' : 'text-brand-text-primary dark:text-dark-text-primary'}`}>
+                                  <ChecklistIcon className="w-5 h-5" />
+                                  <span className="flex-grow">{t('checklist')}</span>
+                                  {totalSubTasks > 0 && (
+                                      <span className="text-xs bg-slate-200 dark:bg-dark-surface text-brand-text-secondary dark:text-dark-text-secondary rounded-full px-2 py-0.5 font-medium">
+                                          {completedSubTasks}/{totalSubTasks}
+                                      </span>
+                                  )}
                                 </button>
                                 <div className="my-1 h-px bg-brand-border dark:bg-dark-border"></div>
                                 <button onClick={() => { handleSoftDelete(); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-brand-error hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">

@@ -1,6 +1,6 @@
 export enum Category {
   TASK = 'TASK',
-  MAKE_MONEY = 'MAKE_MONEY',
+  MAKE_MONEY = 'MAKE_MONMONEY',
   INCREASE_RATE = 'INCREASE_RATE',
   GIVE_ENERGY = 'GIVE_ENERGY',
   IGNORED = 'IGNORED',
@@ -36,6 +36,7 @@ export interface TaskItem {
   createdAt: number;
   subTasks: SubTask[];
   actionPlan?: ActionPlan;
+  completionHistory?: string[]; // Array of 'YYYY-MM-DD' dates
 }
 
 export interface SurveyAnswers {
@@ -54,10 +55,25 @@ export interface ReflectionData {
 
 export type VisionHorizon = '5y' | '1y' | '3m' | '1m';
 
+export interface VisionChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
 export interface Vision {
   horizon: VisionHorizon;
   text: string;
   imageUrl?: string; // Storing image as data URL
+  checklist?: VisionChecklistItem[];
+}
+
+export interface Comment {
+  id: string;
+  text: string;
+  userName:string;
+  userAvatar: string;
+  createdAt: number;
 }
 
 export interface ForumPost {
@@ -66,4 +82,23 @@ export interface ForumPost {
   createdAt: number;
   userName: string;
   userAvatar: string;
+  likes: number;
+  likedBy: string[];
+  comments: Comment[];
+}
+
+export type UserRole = 'user' | 'admin';
+
+export interface Course {
+  id: string;
+  titleKey: string;
+  descKey: string;
+  imageUrl: string;
+  status: 'active' | 'coming_soon';
+}
+
+export interface Session {
+  title: string;
+  time: string;
+  link: string;
 }

@@ -1,11 +1,10 @@
-
-
 import React from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { Theme, IdeasLayout } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
 import { LanguageIcon } from './icons/LanguageIcon';
 import { LANGUAGES, LanguageCode } from '../lib/i18n';
+import { UserRole } from '../types';
 
 interface ProfilePageProps {
   hourlyRate: number;
@@ -15,6 +14,8 @@ interface ProfilePageProps {
   onResetRate: () => void;
   ideasLayout: IdeasLayout;
   onSetIdeasLayout: (layout: IdeasLayout) => void;
+  role: UserRole;
+  onSetRole: (role: UserRole) => void;
 }
 
 // Helper icons for the theme switcher
@@ -35,7 +36,7 @@ const SystemIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ hourlyRate, onReset, theme, onSetTheme, onResetRate, ideasLayout, onSetIdeasLayout }) => {
+const ProfilePage: React.FC<ProfilePageProps> = ({ hourlyRate, onReset, theme, onSetTheme, onResetRate, ideasLayout, onSetIdeasLayout, role, onSetRole }) => {
     const [makeMoneyAnswer, setMakeMoneyAnswer] = useLocalStorage('profile_makeMoney', '');
     const [increaseRateAnswer, setIncreaseRateAnswer] = useLocalStorage('profile_increaseRate', '');
     const [giveEnergyAnswer, setGiveEnergyAnswer] = useLocalStorage('profile_giveEnergy', '');
@@ -62,6 +63,22 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ hourlyRate, onReset, theme, o
                     </div>
                 </section>
                 
+                {/* Developer Mode */}
+                <section className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
+                    <h2 className="font-semibold text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('developerMode')}</h2>
+                    <div className="flex bg-slate-100 dark:bg-dark-elev1 rounded-xl p-1 space-x-1">
+                        {(['user', 'admin'] as UserRole[]).map(roleOption => (
+                            <button
+                                key={roleOption}
+                                onClick={() => onSetRole(roleOption)}
+                                className={`w-full h-10 rounded-lg text-sm font-semibold transition-all duration-300 ${role === roleOption ? 'bg-white dark:bg-dark-surface shadow' : 'hover:bg-white/50 dark:hover:bg-dark-surface/50'}`}
+                            >
+                                <span className="capitalize">{t(roleOption)}</span>
+                            </button>
+                        ))}
+                    </div>
+                </section>
+
                 {/* Ideas View Setting */}
                 <section className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
                     <h2 className="font-semibold text-brand-text-secondary dark:text-dark-text-secondary mb-4">Ideas View</h2>

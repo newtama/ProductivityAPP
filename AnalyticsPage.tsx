@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { TaskItem, UserRole } from '../types';
+import { TaskItem, Category } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AIIcon } from './icons/AIIcon';
 import { SpinnerIcon } from './icons/SpinnerIcon';
@@ -10,94 +10,20 @@ import { ChecklistIcon } from './icons/ChecklistIcon';
 import { StarIcon } from './icons/StarIcon';
 import { useAnalytics } from '../hooks/useAnalytics';
 import { RoutineIcon } from './icons/RoutineIcon';
-import { UsersIcon } from './icons/UsersIcon';
-import { ActivityIcon } from './icons/ActivityIcon';
 
-
-// --- Admin Dashboard Component ---
-
-const AdminAnalyticsDashboard: React.FC = () => {
-    const { t } = useLanguage();
-
-    // Mock data for charts
-    const userGrowthData = useMemo(() => [
-        { label: 'Jun', value: 650 },
-        { label: 'Jul', value: 720 },
-        { label: 'Aug', value: 850 },
-        { label: 'Sep', value: 920 },
-        { label: 'Oct', value: 1100 },
-        { label: 'Nov', value: 1428 },
-    ], [t]);
-
-    const featureAdoptionData = useMemo(() => [
-        { label: t('ideas'), value: 45, color: 'text-brand-primary' },
-        { label: t('routines'), value: 30, color: 'text-brand-accent' },
-        { label: t('vision'), value: 15, color: 'text-brand-info' },
-        { label: t('community'), value: 10, color: 'text-brand-warning' },
-    ], [t]);
-
-    const AdminStatCard: React.FC<{label: string, value: string, icon: React.ReactNode, subtext?: string}> = ({ label, value, icon, subtext }) => (
-      <div className="bg-white dark:bg-dark-surface p-5 rounded-2xl flex items-start space-x-4 shadow-sm border dark:border-dark-border/50">
-        <div className="bg-slate-100 dark:bg-dark-elev1 p-3 rounded-xl">{icon}</div>
-        <div>
-            <p className="text-sm font-semibold text-brand-text-secondary dark:text-dark-text-secondary">{label}</p>
-            <p className="text-3xl font-bold text-brand-text-primary dark:text-dark-text-primary mt-1">{value}</p>
-            {subtext && <p className="text-xs text-brand-text-secondary dark:text-dark-muted mt-1">{subtext}</p>}
-        </div>
-    </div>
-    );
-    
-    return (
-        <div className="p-4 md:p-8 bg-brand-bg dark:bg-dark-bg min-h-screen">
-            <header className="mb-8 max-w-6xl mx-auto">
-                <h1 className="text-3xl md:text-4xl font-bold text-brand-text-primary dark:text-dark-text-primary">{t('adminDashboard')}</h1>
-            </header>
-            <main className="space-y-8 max-w-6xl mx-auto">
-                {/* Key Metrics */}
-                <section>
-                    <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-4">{t('keyMetrics')}</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <AdminStatCard label={t('totalUsers')} value="1,428" icon={<UsersIcon className="w-6 h-6 text-brand-primary"/>} subtext="+12 this week" />
-                        <AdminStatCard label={t('dailyActiveUsers')} value="305" icon={<ActivityIcon className="w-6 h-6 text-brand-accent"/>} subtext="24h avg" />
-                        <AdminStatCard label={t('engagement')} value="7.2k" icon={<ChecklistIcon className="w-6 h-6 text-brand-info"/>} subtext={t('tasksCreated')} />
-                    </div>
-                </section>
-                
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                    {/* User Growth */}
-                    <section className="lg:col-span-3 bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
-                        <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-1">{t('userGrowth')}</h2>
-                        <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('last30days')}</p>
-                        <div className="h-64"><BarChart data={userGrowthData} maxValue={1500} /></div>
-                    </section>
-
-                    {/* Feature Adoption */}
-                    <section className="lg:col-span-2 bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
-                         <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-1">{t('featureAdoption')}</h2>
-                         <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('basedOnOneThing')}</p>
-                         <div className="h-64"><DonutChart data={featureAdoptionData} /></div>
-                    </section>
-                </div>
-            </main>
-        </div>
-    );
-};
-
-
-// --- User Analytics Component ---
-
-interface UserAnalyticsViewProps {
+interface AnalyticsPageProps {
   oneThingHistory: Array<{date: string; task: TaskItem}>;
   hourlyRate: number;
   items: TaskItem[];
 }
 
-const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, hourlyRate, items }) => {
+const AnalyticsPage: React.FC<AnalyticsPageProps> = ({ oneThingHistory, hourlyRate, items }) => {
   const { t, formatCurrency, currentLang } = useLanguage();
   const [isThinking, setIsThinking] = useState(false);
   const [insight, setInsight] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { weeklyData, trendData, focusData, routineData } = useAnalytics(oneThingHistory, hourlyRate, items);
+
 
   const handleGenerateInsight = async () => {
       setIsThinking(true);
@@ -112,9 +38,16 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
           - Performance Trend (success rate last 4 weeks): ${trendData.map(d => `${d.label}: ${d.value.toFixed(0)}%`).join(', ')}
           - Focus Breakdown (task counts): ${focusData.map(d => `${d.label}: ${d.value}`).join(', ')}
         `;
+
         const prompt = `You are a world-class productivity coach. Here is my performance data summary:\n${dataSummary}\nBased on this data, analyze my performance. Your entire response must be in ${currentLang.name}. Structure your response exactly like this, using markdown:\n\n**[Your positive reinforcement here, 1 sentence]**\n\n**[Your single, most impactful, actionable suggestion for improvement here, 1-2 sentences]**`;
-        const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+        });
+
         setInsight(response.text);
+
       } catch (e) {
         console.error(e);
         setError(t('suggestionError'));
@@ -125,7 +58,9 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
 
   const StatCard: React.FC<{label: string, value: string, icon: React.ReactNode}> = ({ label, value, icon }) => (
     <div className="bg-white dark:bg-dark-surface p-4 rounded-2xl flex items-center space-x-4 shadow-sm border dark:border-dark-border/50">
-        <div className="bg-slate-100 dark:bg-dark-elev1 p-3 rounded-full">{icon}</div>
+        <div className="bg-slate-100 dark:bg-dark-elev1 p-3 rounded-full">
+            {icon}
+        </div>
         <div>
             <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary">{label}</p>
             <p className="text-xl font-bold text-brand-text-primary dark:text-dark-text-primary">{value}</p>
@@ -138,6 +73,7 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
       <header className="mb-8 max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-brand-text-primary dark:text-dark-text-primary">{t('analytics')}</h1>
       </header>
+      
       <div className="space-y-8 max-w-4xl mx-auto">
         {/* Weekly Overview */}
         <div className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
@@ -147,7 +83,11 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
                   <div className="relative w-28 h-28">
                        <svg className="w-full h-full" viewBox="0 0 36 36">
                           <path className="text-slate-200 dark:text-dark-border" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3.8"></path>
-                          <path className="text-brand-accent" strokeDasharray={`${weeklyData.successRate}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3.8" strokeLinecap="round" transform="rotate(-90 18 18)"></path>
+                          <path className="text-brand-accent"
+                              strokeDasharray={`${weeklyData.successRate}, 100`}
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                              fill="none" stroke="currentColor" strokeWidth="3.8" strokeLinecap="round" transform="rotate(-90 18 18)"
+                          ></path>
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
                           <span className="text-3xl font-bold text-brand-text-primary dark:text-dark-text-primary">{weeklyData.successRate.toFixed(0)}<span className="text-xl">%</span></span>
@@ -164,24 +104,40 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
               </div>
           </div>
         </div>
+
+        {/* Routine Consistency */}
         {routineData && routineData.chartData.length > 0 && (
           <div className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
             <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-1">{t('routineConsistency')}</h2>
             <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('adherenceOver7Days')}</p>
-            <div className="mb-6"><StatCard label={t('overallAdherence')} value={`${routineData.overallAdherence.toFixed(0)}%`} icon={<RoutineIcon className="w-6 h-6 text-amber-600"/>} /></div>
-            <div className="h-48"><BarChart data={routineData.chartData} /></div>
+            <div className="mb-6">
+              <StatCard label={t('overallAdherence')} value={`${routineData.overallAdherence.toFixed(0)}%`} icon={<RoutineIcon className="w-6 h-6 text-amber-600"/>} />
+            </div>
+            <div className="h-48">
+              <BarChart data={routineData.chartData} />
+            </div>
           </div>
         )}
+
+        {/* Performance Trend */}
         <div className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
           <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-1">{t('performanceTrend')}</h2>
           <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('last4Weeks')}</p>
-          <div className="h-48"><BarChart data={trendData} /></div>
+          <div className="h-48">
+            <BarChart data={trendData} />
+          </div>
         </div>
+
+        {/* Focus Breakdown */}
         <div className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
           <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-1">{t('focusBreakdown')}</h2>
           <p className="text-sm text-brand-text-secondary dark:text-dark-text-secondary mb-4">{t('basedOnOneThing')}</p>
-          <div className="h-48"><DonutChart data={focusData} /></div>
+          <div className="h-48">
+            <DonutChart data={focusData} />
+          </div>
         </div>
+        
+        {/* AI Insights */}
         <div className="bg-white dark:bg-dark-surface p-6 rounded-3xl shadow-ios border dark:border-dark-border">
           <h2 className="text-xl font-semibold text-brand-text-primary dark:text-dark-text-primary mb-4">{t('aiPoweredInsights')}</h2>
           {insight ? (
@@ -189,7 +145,11 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
               {insight.split('\n\n').map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
           ) : (
-            <button onClick={handleGenerateInsight} disabled={isThinking} className="w-full h-12 bg-brand-primary hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-surface focus:ring-brand-primary disabled:opacity-50 flex items-center justify-center gap-2">
+            <button
+                onClick={handleGenerateInsight}
+                disabled={isThinking}
+                className="w-full h-12 bg-brand-primary hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-surface focus:ring-brand-primary disabled:opacity-50 flex items-center justify-center gap-2"
+            >
                 {isThinking ? <SpinnerIcon className="w-5 h-5"/> : <AIIcon className="w-5 h-5"/>}
                 <span>{isThinking ? t('generating') : t('generateInsights')}</span>
             </button>
@@ -199,22 +159,6 @@ const UserAnalyticsView: React.FC<UserAnalyticsViewProps> = ({ oneThingHistory, 
       </div>
     </div>
   );
-};
-
-
-// --- Main Page Component ---
-interface AnalyticsPageProps {
-  oneThingHistory: Array<{date: string; task: TaskItem}>;
-  hourlyRate: number;
-  items: TaskItem[];
-  role: UserRole;
-}
-
-const AnalyticsPage: React.FC<AnalyticsPageProps> = ({ oneThingHistory, hourlyRate, items, role }) => {
-  if (role === 'admin') {
-    return <AdminAnalyticsDashboard />;
-  }
-  return <UserAnalyticsView oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} items={items} />;
 };
 
 export default AnalyticsPage;

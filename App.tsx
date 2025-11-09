@@ -1,8 +1,6 @@
-
-
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
-import { TaskItem, Category, ReflectionData, Vision } from './types';
+import { TaskItem, Category, ReflectionData, Vision, UserRole } from './types';
 import RateCalculator from './components/RateCalculator';
 import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
@@ -14,16 +12,10 @@ import ReflectionPage from './components/ReflectionPage';
 import RoutinePage from './components/RoutinePage';
 import VisionPage from './components/VisionPage';
 import CommunityPage from './components/CommunityPage';
+import { getLocalDateString } from './lib/utils';
 
 export type Theme = 'light' | 'dark' | 'system';
 export type IdeasLayout = 'simple' | 'categorized';
-
-const getLocalDateString = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-};
 
 function App() {
   const [annualIncome, setAnnualIncome] = useLocalStorage<string>('annualIncome', '');
@@ -35,6 +27,7 @@ function App() {
   const [oneThingHistory, setOneThingHistory] = useLocalStorage<Array<{date: string; task: TaskItem; reflection?: ReflectionData}>>('oneThingHistory', []);
   const [lastVisitDate, setLastVisitDate] = useLocalStorage<string>('lastVisitDate', '');
   const [visions, setVisions] = useLocalStorage<Vision[]>('visions', []);
+  const [role, setRole] = useLocalStorage<UserRole>('userRole', 'user');
 
 
   useEffect(() => {
@@ -220,7 +213,7 @@ function App() {
        case 'vision':
         return <VisionPage visions={visions} onUpdateVisions={handleUpdateVisions} onNavigateBack={() => setPage('home')} />;
        case 'community':
-        return <CommunityPage />;
+        return <CommunityPage role={role} />;
        case 'routine':
         return (
           <RoutinePage
@@ -231,9 +224,9 @@ function App() {
           />
         );
        case 'analytics':
-        return <AnalyticsPage oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} />;
+        return <AnalyticsPage oneThingHistory={oneThingHistory} hourlyRate={hourlyRate} items={items} role={role} />;
       case 'profile':
-        return <ProfilePage hourlyRate={hourlyRate} onReset={handleReset} theme={theme} onSetTheme={setTheme} onResetRate={handleResetRate} ideasLayout={ideasLayout} onSetIdeasLayout={setIdeasLayout}/>;
+        return <ProfilePage hourlyRate={hourlyRate} onReset={handleReset} theme={theme} onSetTheme={setTheme} onResetRate={handleResetRate} ideasLayout={ideasLayout} onSetIdeasLayout={setIdeasLayout} role={role} onSetRole={setRole} />;
       case 'reflection': {
         const todayStr = getLocalDateString(new Date());
         const todayHistory = oneThingHistory.find(h => h.date === todayStr);
@@ -248,7 +241,7 @@ function App() {
     }
   };
 
-  const pagesWithNav = ['home', 'community', 'analytics', 'profile'];
+  const pagesWithNav = ['home', 'community', 'analytics', 'profile', 'vision'];
   const showNav = pagesWithNav.includes(page);
 
   return (

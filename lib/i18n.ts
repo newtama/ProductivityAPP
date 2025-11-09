@@ -1,5 +1,3 @@
-
-
 export const LANGUAGES = {
   en: { name: 'English', nativeName: 'English', currency: '$', currencyCode: 'USD' },
   id: { name: 'Indonesian', nativeName: 'Bahasa Indonesia', currency: 'Rp', currencyCode: 'IDR' },
@@ -21,6 +19,14 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
     zh: '我的焦点',
     ar: 'تركيزي',
   },
+  user: { en: 'User', id: 'Pengguna', ru: 'Пользователь', hi: 'उपयोगकर्ता', zh: '用户', ar: 'مستخدم' },
+  admin: { en: 'Admin', id: 'Admin', ru: 'Админ', hi: 'एडमिन', zh: '管理员', ar: 'مسؤول' },
+  edit: { en: 'Edit', id: 'Edit', ru: 'Править', hi: 'संपादित करें', zh: '编辑', ar: 'تعديل' },
+  remove: { en: 'Remove', id: 'Hapus', ru: 'Удалить', hi: 'हटाएं', zh: '移除', ar: 'إزالة' },
+  cancel: { en: 'Cancel', id: 'Batal', ru: 'Отмена', hi: 'रद्द करें', zh: '取消', ar: 'إلغاء' },
+  saveChanges: { en: 'Save Changes', id: 'Simpan Perubahan', ru: 'Сохранить изменения', hi: 'बदलाव सहेजें', zh: '保存更改', ar: 'حفظ التغييرات' },
+
+
   // Rate Calculator
   knowYourWorth: {
     en: 'Know your worth. Find your focus.',
@@ -201,6 +207,9 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   makeMoney: { en: 'Make Money', id: 'Menghasilkan Uang', ru: 'Заработок', hi: 'पैसे कमाएं', zh: '赚钱', ar: 'كسب المال' },
   increaseRate: { en: 'Increase Rate', id: 'Meningkatkan Tarif', ru: 'Повышение ставки', hi: 'दर बढ़ाएँ', zh: '提高费率', ar: 'زيادة الأجر' },
   giveEnergy: { en: 'Give Energy', id: 'Memberi Energi', ru: 'Дает энергию', hi: 'ऊर्जा दें', zh: '给予能量', ar: 'منح الطاقة' },
+  routineConsistency: { en: 'Routine Consistency', id: 'Konsistensi Rutin', ru: 'Постоянство рутины', hi: 'नियमितता संगति', zh: '例行公事一致性', ar: 'اتساق الروتين' },
+  adherenceOver7Days: { en: 'Adherence over last 7 days', id: 'Kepatuhan selama 7 hari terakhir', ru: 'Соблюдение за последние 7 дней', hi: 'पिछले 7 दिनों में पालन', zh: '过去7天的遵守情况', ar: 'الالتزام على مدى الأيام السبعة الماضية' },
+  overallAdherence: { en: 'Overall Adherence', id: 'Kepatuhan Keseluruhan', ru: 'Общее соблюдение', hi: 'समग्र पालन', zh: '总体遵守情况', ar: 'الالتزام العام' },
 
   // Reflection Page
   dailyReflection: { en: 'Daily Reflection', id: 'Refleksi Harian', ru: 'Ежедневная рефлексия', hi: 'दैनिक चिंतन', zh: '每日反思', ar: 'تأمل يومي' },
@@ -233,7 +242,7 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   reflectionQ4: { en: "Which part of the day was most wasted?", id: "Bagian hari mana yang paling banyak kebuang?", ru: "Какая часть дня была потрачена впустую?", hi: "दिन का कौन सा हिस्सा सबसे ज्यादा बर्बाद हुआ?", zh: "一天中的哪个部分最浪费时间？", ar: "أي جزء من اليوم كان الأكثر إهدارًا؟" },
   reflectionQ4A1: { en: "Morning", id: "Pagi", ru: "Утро", hi: "सुबह", zh: "早上", ar: "الصباح" },
   reflectionQ4A2: { en: "Afternoon", id: "Siang", ru: "День", hi: "दोपहर", zh: "下午", ar: "بعد الظهر" },
-  reflectionQ4A3: { en: "Evening", id: "Malam", ru: "Вечер", hi: "शाम", zh: "晚上", ar: "المساء" },
+  reflectionQ4A3: { en: "Evening", id: "Malam", ru: "Вечер", hi: "शाम", zh: "晚上", ar: 'المساء' },
   reflectionQ4A4: { en: "Scrolling Social Media", id: "Scroll Medsos", ru: "Прокрутка соцсетей", hi: "सोशल मीडिया स्क्रॉल करना", zh: "刷社交媒体", ar: "تصفح وسائل التواصل الاجتماعي" },
   reflectionQ4A5: { en: "Waiting for a Response", id: "Nunggu Respon", ru: "Ожидание ответа", hi: "प्रतिक्रिया की प्रतीक्षा", zh: "等待回复", ar: "انتظار الرد" },
   
@@ -242,7 +251,7 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   reflectionQ5A2: { en: "Place", id: "Tempat", ru: "Место", hi: "जगह", zh: "地点", ar: "المكان" },
   reflectionQ5A3: { en: "Notifications", id: "Notifikasi", ru: "Уведомления", hi: "सूचनाएं", zh: "通知", ar: "الإشعارات" },
   reflectionQ5A4: { en: "Unclear Task", id: "Tugas Nggak Jelas", ru: "Неясная задача", hi: "अस्पष्ट कार्य", zh: "任务不明确", ar: "مهمة غير واضحة" },
-  reflectionQ5A5: { en: "Fatigue", id: "Kelelahan", ru: "Усталость", hi: "थकान", zh: "疲劳", ar: "الإрهاق" },
+  reflectionQ5A5: { en: "Fatigue", id: "Kelelahan", ru: "Усталость", hi: "थकान", zh: "疲劳", ar: "الإرهاق" },
 
   reflectionQ6: { en: "What anticipatory strategy for tomorrow do you want to activate in the app?", id: "Strategi antisipasi untuk besok yang mau kamu aktifkan di app?", ru: "Какую упреждающую стратегию на завтра вы хотите активировать в приложении?", hi: "कल के लिए आप ऐप में कौन सी प्रत्याशित रणनीति सक्रिय करना चाहते हैं?", zh: "您想在应用中为明天激活什么预期策略？", ar: "ما هي الاستراتيجية الاستباقية للغد التي تريد تفعيلها في التطبيق؟" },
   reflectionQ6A1: { en: "Activate 25-min focus mode", id: "Aktifkan mode fokus 25 menit", ru: "Активировать 25-минутный режим фокусировки", hi: "25-मिनट का फ़ोकस मोड सक्रिय करें", zh: "激活25分钟专注模式", ar: "تفعيل وضع التركيز لمدة 25 دقيقة" },
@@ -276,9 +285,9 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   upcomingSession: { en: 'Upcoming Focus Session', id: 'Sesi Fokus Mendatang', ru: 'Предстоящая фокус-сессия', hi: 'आगामी फोकस सत्र', zh: '即将举行的专注会议', ar: 'جلسة التركيز القادمة' },
   joinZoom: { en: 'Join with Zoom', id: 'Gabung dengan Zoom', ru: 'Присоединиться к Zoom', hi: 'ज़ूम से जुड़ें', zh: '使用 Zoom 加入', ar: 'انضم عبر زووم' },
   communityForum: { en: 'Community Forum', id: 'Forum Komunitas', ru: 'Форум сообщества', hi: 'सामुदायिक मंच', zh: '社区论坛', ar: 'منتدى المجتمع' },
-  // Community Page v2
-  feed: { en: 'Feed', id: 'Feed', ru: 'Лента', hi: 'फ़ीड', zh: '动态', ar: 'آخر الأخبار' },
+  forum: { en: 'Forum', id: 'Forum', ru: 'Форум', hi: 'मंच', zh: '论坛', ar: 'المنتدى' },
   sessions: { en: 'Sessions', id: 'Sesi', ru: 'Сессии', hi: 'सत्र', zh: '会议', ar: 'الجلسات' },
+  courses: { en: 'Courses', id: 'Kursus', ru: 'Курсы', hi: 'पाठ्यक्रम', zh: '课程', ar: 'الدورات' },
   whatsOnYourMindCommunity: { en: 'Share your thoughts or wins...', id: 'Bagikan pemikiran atau kemenanganmu...', ru: 'Поделитесь своими мыслями или победами...', hi: 'अपने विचार या जीत साझा करें...', zh: '分享您的想法或胜利...', ar: 'شارك بأفكارك أو إنجازاتك...' },
   post: { en: 'Post', id: 'Kirim', ru: 'Опубликовать', hi: 'पोस्ट करें', zh: '发布', ar: 'نشر' },
   you: { en: 'You', id: 'Anda', ru: 'Вы', hi: 'आप', zh: '您', ar: 'أنت' },
@@ -286,4 +295,47 @@ export const translations: Record<string, Record<LanguageCode, string>> = {
   minutesAgo: { en: '{count}m ago', id: '{count}m lalu', ru: '{count}м назад', hi: '{count}मि पहले', zh: '{count}分钟前', ar: 'منذ {count} دقيقة' },
   hoursAgo: { en: '{count}h ago', id: '{count}j lalu', ru: '{count}ч назад', hi: '{count}घं पहले', zh: '{count}小时前', ar: 'منذ {count} ساعة' },
   daysAgo: { en: '{count}d ago', id: '{count}h lalu', ru: '{count}д назад', hi: '{count}दि पहले', zh: '{count}天前', ar: 'منذ {count} يوم' },
+  course1Title: { en: 'The One Thing Mastery', id: 'Mastery Satu Hal', ru: 'Мастерство Одного Дела', hi: 'एक चीज़ में महारत', zh: '“那件事”精通', ar: 'إتقان المهمة الأهم' },
+  course1Desc: { en: 'A deep dive into the core principles of identifying and executing your most important priorities.', id: 'Mendalami prinsip-prinsip inti dalam mengidentifikasi dan melaksanakan prioritas terpenting Anda.', ru: 'Глубокое погружение в основные принципы определения и выполнения ваших самых важных приоритетов.', hi: 'अपनी सबसे महत्वपूर्ण प्राथमिकताओं को पहचानने और निष्पादित करने के मूल सिद्धांतों में गहराई से उतरें।', zh: '深入探讨确定和执行最重要优先事项的核心原则。', ar: 'الغوص بعمق في المبادئ الأساسية لتحديد وتنفيذ أهم أولوياتك.' },
+  course2Title: { en: 'Productivity Systems', id: 'Sistem Produktivitas', ru: 'Системы Продуктивности', hi: 'उत्पादकता प्रणालियाँ', zh: '生产力系统', ar: 'أنظمة الإنتاجية' },
+  course2Desc: { en: 'Build a personalized system that minimizes distractions and consistently maximizes your output.', id: 'Bangun sistem yang dipersonalisasi yang meminimalkan gangguan dan secara konsisten memaksimalkan hasil Anda.', ru: 'Создайте персонализированную систему, которая минимизирует отвлекающие факторы и постоянно максимизирует вашу производительность.', hi: 'एक व्यक्तिगत प्रणाली बनाएं जो विकर्षणों को कम करती है और लगातार आपके आउटपुट को अधिकतम करती है।', zh: '建立一个个性化的系统，最大限度地减少干扰并持续最大化您的产出。', ar: 'بناء نظام شخصي يقلل من الانحرافات ويزيد من إنتاجك باستمرار.' },
+  startCourse: { en: 'Start Course', id: 'Mulai Kursus', ru: 'Начать курс', hi: 'कोर्स शुरू करें', zh: '开始课程', ar: 'ابدأ الدورة' },
+  active: { en: 'Active', id: 'Aktif', ru: 'Активный', hi: 'सक्रिय', zh: '活动的', ar: 'نشط' },
+  comingSoon: { en: 'Coming Soon', id: 'Segera Hadir', ru: 'Скоро', hi: 'जल्द आ रहा है', zh: '即将推出', ar: 'قريبا' },
+
+  // Forum interaction
+  like: { en: 'Like', id: 'Suka', ru: 'Нравится', hi: 'लाइक', zh: '赞', ar: 'إعجاب' },
+  likes: { en: 'Likes', id: 'Suka', ru: 'Лайки', hi: 'लाइक', zh: '赞', ar: 'إعجابات' },
+  comment: { en: 'Comment', id: 'Komentar', ru: 'Комментарий', hi: 'टिप्पणी', zh: '评论', ar: 'تعليق' },
+  comments: { en: 'Comments', id: 'Komentar', ru: 'Komentar', hi: 'टिप्पणियाँ', zh: '评论', ar: 'تعليقات' },
+  reply: { en: 'Reply', id: 'Balas', ru: 'Ответить', hi: 'उत्तर दें', zh: '回复', ar: 'رد' },
+  viewPost: { en: 'View Post', id: 'Lihat Postingan', ru: 'Посмотреть пост', hi: 'पोस्ट देखें', zh: '查看帖子', ar: 'عرض المشاركة' },
+  
+  // Admin / Developer Mode
+  developerMode: { en: 'Developer Mode', id: 'Mode Pengembang', ru: 'Режим разработчика', hi: 'डेवलपर मोड', zh: '开发者模式', ar: 'وضع المطور' },
+  adminDashboard: { en: 'Admin Dashboard', id: 'Dasbor Admin', ru: 'Панель администратора', hi: 'एडमिन डैशबोर्ड', zh: '管理员仪表板', ar: 'لوحة تحكم المسؤول' },
+  userManagement: { en: 'User Management', id: 'Manajemen Pengguna', ru: 'Управление пользователями', hi: 'उपयोगकर्ता प्रबंधन', zh: '用户管理', ar: 'إدارة المستخدمين' },
+  appSettings: { en: 'App Settings', id: 'Pengaturan Aplikasi', ru: 'Настройки приложения', hi: 'ऐप सेटिंग्स', zh: '应用设置', ar: 'إعدادات التطبيق' },
+  addNewCourse: { en: 'Add New Course', id: 'Tambah Kursus Baru', ru: 'Добавить новый курс', hi: 'नया कोर्स जोड़ें', zh: '添加新课程', ar: 'إضافة دورة جديدة' },
+  createPost: { en: 'Create Post', id: 'Buat Postingan', ru: 'Создать пост', hi: 'पोस्ट बनाएं', zh: '创建帖子', ar: 'إنشاء منشور' },
+  keyMetrics: { en: 'Key Metrics', id: 'Metrik Utama', ru: 'Ключевые метрики', hi: 'मुख्य मैट्रिक्स', zh: '关键指标', ar: 'المقاييس الرئيسية' },
+  totalUsers: { en: 'Total Users', id: 'Total Pengguna', ru: 'Всего пользователей', hi: 'कुल उपयोगकर्ता', zh: '总用户', ar: 'إجمالي المستخدمين' },
+  dailyActiveUsers: { en: 'Daily Active Users', id: 'Pengguna Aktif Harian', ru: 'Активные пользователи в день', hi: 'दैनिक सक्रिय उपयोगकर्ता', zh: '每日活跃用户', ar: 'المستخدمون النشطون يومياً' },
+  engagement: { en: 'Engagement', id: 'Keterlibatan', ru: 'Вовлеченность', hi: 'सगाई', zh: '参与度', ar: 'المشاركة' },
+  tasksCreated: { en: 'Tasks Created', id: 'Tugas Dibuat', ru: 'Создано задач', hi: 'बनाए गए कार्य', zh: '已创建任务', ar: 'تم إنشاء المهام' },
+  userGrowth: { en: 'User Growth', id: 'Pertumbuhan Pengguna', ru: 'Рост пользователей', hi: 'उपयोगकर्ता वृद्धि', zh: '用户增长', ar: 'نمو المستخدمين' },
+  last30days: { en: 'Last 30 days', id: '30 Hari Terakhir', ru: 'Последние 30 дней', hi: 'पिछले 30 दिन', zh: '过去30天', ar: 'آخر 30 يومًا' },
+  featureAdoption: { en: 'Feature Adoption', id: 'Adopsi Fitur', ru: 'Использование функций', hi: 'फ़ीचर अपनाना', zh: '功能采用', ar: 'اعتماد الميزة' },
+  editSession: { en: 'Edit Session', id: 'Edit Sesi', ru: 'Редактировать сессию', hi: 'सत्र संपादित करें', zh: '编辑会话', ar: 'تحرير الجلسة' },
+  sessionTitle: { en: 'Session Title', id: 'Judul Sesi', ru: 'Название сессии', hi: 'सत्र का शीर्षक', zh: '会话标题', ar: 'عنوان الجلسة' },
+  sessionTime: { en: 'Session Time', id: 'Waktu Sesi', ru: 'Время сессии', hi: 'सत्र का समय', zh: '会话时间', ar: 'وقت الجلسة' },
+  zoomLink: { en: 'Zoom Link', id: 'Tautan Zoom', ru: 'Ссылка Zoom', hi: 'ज़ूम लिंक', zh: 'Zoom 链接', ar: 'رابط زووم' },
+  editCourse: { en: 'Edit Course', id: 'Edit Kursus', ru: 'Редактировать курс', hi: 'कोर्स संपादित करें', zh: '编辑课程', ar: 'تحرير الدورة' },
+  addCourse: { en: 'Add Course', id: 'Tambah Kursus', ru: 'Добавить курс', hi: 'कोर्स जोड़ें', zh: '添加课程', ar: 'إضافة دورة' },
+  courseTitleLabel: { en: 'Course Title', id: 'Judul Kursus', ru: 'Название курса', hi: 'कोर्स का शीर्षक', zh: '课程标题', ar: 'عنوان الدورة' },
+  courseDescription: { en: 'Description', id: 'Deskripsi', ru: 'Описание', hi: 'विवरण', zh: '描述', ar: 'الوصف' },
+  courseImageURL: { en: 'Image URL', id: 'URL Gambar', ru: 'URL изображения', hi: 'छवि यूआरएल', zh: '图片网址', ar: 'رابط الصورة' },
+  courseStatus: { en: 'Status', id: 'Status', ru: 'Статус', hi: 'दर्जा', zh: '状态', ar: 'الحالة' },
+  removeCourse: { en: 'Remove Course', id: 'Hapus Kursus', ru: 'Удалить курс', hi: 'कोर्स हटाएं', zh: '删除课程', ar: 'إزالة الدورة' },
+  removeCourseConfirm: { en: 'Are you sure you want to remove this course?', id: 'Apakah Anda yakin ingin menghapus kursus ini?', ru: 'Вы уверены, что хотите удалить этот курс?', hi: 'क्या आप वाकई इस कोर्स को हटाना चाहते हैं?', zh: '您确定要删除此课程吗？', ar: 'هل أنت متأكد أنك تريد إزالة هذه الدورة؟' },
 };

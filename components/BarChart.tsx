@@ -1,16 +1,15 @@
 import React from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
 
 interface BarChartProps {
   data: Array<{
     label: string;
     value: number;
   }>;
+  maxValue?: number;
 }
 
-const BarChart: React.FC<BarChartProps> = ({ data }) => {
-  const { t } = useLanguage();
-  const maxValue = 100; // Percentage based
+const BarChart: React.FC<BarChartProps> = ({ data, maxValue: propMaxValue }) => {
+  const maxValue = propMaxValue || Math.max(...data.map(item => item.value), 100);
 
   return (
     <div className="w-full h-full flex items-end justify-around gap-2 px-2">
@@ -25,7 +24,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
                 >
                     <div 
                         className="bg-brand-primary dark:bg-dark-text-primary h-full w-full rounded-t-lg"
-                        style={{ transformOrigin: 'bottom', transform: `scaleY(${barHeight / 100})` }}
+                        style={{ transformOrigin: 'bottom', transform: `scaleY(1)` }} // Simplified animation
                     />
                 </div>
             </div>

@@ -1,9 +1,11 @@
+
 import { useMemo } from 'react';
 import { TaskItem, Category } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getCategoryFromRating } from '../lib/utils';
+import { getLocalDateString } from '../lib/utils';
 
-export const useAnalytics = (oneThingHistory: Array<{date: string; task: TaskItem}>, hourlyRate: number) => {
+export const useAnalytics = (oneThingHistory: Array<{date: string; task: TaskItem}>, hourlyRate: number, items: TaskItem[]) => {
   const { t } = useLanguage();
 
   const weeklyData = useMemo(() => {
@@ -98,5 +100,38 @@ export const useAnalytics = (oneThingHistory: Array<{date: string; task: TaskIte
 
   }, [oneThingHistory, t]);
 
-  return { weeklyData, trendData, focusData };
+  const routineData = useMemo(() => {
+    const routineItems = items.filter(item => item.isRoutine && item.category !== 'IGNORED');
+    if (routineItems.length === 0) {
+        return {
+            overallAdherence: 0,
+            chartData: [],
+        };
+    }
+    
+    const today = new Date();
+    const last7Days: string[] = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+        last7Days.push(getLocalDateString(d));
+    }
+
+    let totalCompletions = 0;
+    const chartData = routineItems.map(item => {
+        const completions = (item.completionHistory || []).filter(date => last7Days.includes(date)).length;
+        totalCompletions += completions;
+        return {
+            label: item.text.length > 15 ? `${item.text.substring(0, 15)}...` : item.text,
+            value: (completions / 7) * 100, // Adherence percentage
+        };
+    });
+
+    const totalPossibleCompletions = routineItems.length * 7;
+    const overallAdherence = totalPossibleCompletions > 0 ? (totalCompletions / totalPossibleCompletions) * 100 : 0;
+
+    return { overallAdherence, chartData };
+  }, [items, t]);
+
+  return { weeklyData, trendData, focusData, routineData };
 };
